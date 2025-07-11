@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Toggle button speedrun</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <svg width="0" height="0" style="position: absolute; top: 0; left: 0;">
+        <defs>
+            <filter id="displacementFilter" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
+                <feturbulence type="fractalNoise" baseFrequency="0.002 0.005" numOctaves="1" seed="42"
+                    result="turbulence" /> <!-- The answer to life, the universe and everything -->
+                <fecomponenttransfer in="turbulence" result="mapped">
+                    <fefuncr type="gamma" amplitude="1" exponent="10" offset="0.5" />
+                    <fefuncg type="gamma" amplitude="0" exponent="1" offset="0" />
+                    <fefuncb type="gamma" amplitude="0" exponent="1" offset="0" />
+                </fecomponenttransfer>
+                <fedisplacementmap in="SourceGraphic" in2="mapped" scale="10" xchannelselector="R"
+                    ychannelselector="G" />
+            </filter>
+        </defs>
+    </svg>
+    <header></header>
+    <main>
+        <button value="0">
+            <div class="lense"></div>
+            <div class="pill"></div>
+        </button>
+    </main>
+    <footer></footer>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const button = document.querySelector('main > button');
+        const lense = button.querySelector('.lense');
+        const pill = button.querySelector('.pill');
+
+        button.addEventListener('click', () => {
+            button.value = button.value === '0' ? '1' : '0';
+            lense.classList.add('transitioning');
+            setTimeout(() => {
+                lense.classList.remove('transitioning');
+            }, 300);
+        });
+    });
+</script>
+
+</html>
